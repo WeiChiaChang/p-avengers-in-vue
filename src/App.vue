@@ -11,9 +11,9 @@
           v-for="(grid, index) in randomGenerateGrids(grids)"
           :key="index"
           :class="`box box${grid.id} ${selectedGrids.includes(grid.id) ? 'box-selected': ''}`"
-          @click="toggleSeletcedGrids(grid.id)"
+          @click="toggleSelectedGrids(grid.id)"
         >
-          <div v-if="`box${grid.id}`" class="box-checkbox"></div>
+          <div v-if="`${selectedGrids.includes(grid.id)}`" class="box-checkbox"></div>
         </div>
         <div class="box-footer">
           <div class="left-wrapper">
@@ -44,7 +44,7 @@ export default {
   },
   name: 'app',
   methods: {
-    toggleSeletcedGrids (id) {
+    toggleSelectedGrids (id) {
       if (this.selectedGrids.includes(id)) {
         let index = this.selectedGrids.indexOf(id)
         this.selectedGrids.splice(index, 1)
