@@ -1,5 +1,5 @@
 {
-  "name": "p-avengers",
+  "name": "p-avengers-in-vue",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^7.1.0",
     "vue": "^2.6.10"
   },
   "devDependencies": {

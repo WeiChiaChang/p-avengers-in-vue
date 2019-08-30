@@ -1,0 +1,46 @@
+[
+  {
+    "id": "001",
+    "image_url": "./assets/001_square_bill.jpg"
+  },
+  {
+    "id": "002",
+    "image_url": "./assets/002_square_daniel.png"
+  },
+  {
+    "id": "003",
+    "image_url": "./assets/003_square_danny.png"
+  },
+  {
+    "id": "004",
+    "image_url": "./assets/004_square_geoferry.png"
+  },
+  {
+    "id": "005",
+    "image_url": "./assets/005_square_jennifer.png"
+  },
+  {
+    "id": "006",
+    "image_url": "./assets/006_square_kevin.png"
+  },
+  {
+    "id": "007",
+    "image_url": "./assets/007_square_pascal.png"
+  },
+  {
+    "id": "008",
+    "image_url": "./assets/008_square_peter.png"
+  },
+  {
+    "id": "009",
+    "image_url": "./assets/009_square_rocoo.png"
+  },
+  {
+    "id": "010",
+    "image_url": "./assets/010_square_ryan.png"
+  },
+  {
+    "id": "011",
+    "image_url": "./assets/011_square_winston.png"
+  }
+]
