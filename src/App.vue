@@ -13,7 +13,7 @@
           :class="`box box${grid.id} ${selectedGrids.includes(grid.id) ? 'box-selected': ''}`"
           @click="toggleSelectedGrids(grid.id)"
         >
-          <div v-if="`${selectedGrids.includes(grid.id)}`" class="box-checkbox"></div>
+          <div v-if="selectedGrids.includes(grid.id)" class="box-checkbox"></div>
         </div>
         <div class="box-footer">
           <div class="left-wrapper">
