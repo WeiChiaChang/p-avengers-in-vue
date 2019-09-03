@@ -1,6 +1,9 @@
 <template>
   <div id="app">
     <div class="container">
+      <Modal
+        :visible="showModal"
+      />
       <Overlay v-if="isLoading" />
       <div class="box-container">
         <div class="box box-title">
@@ -12,7 +15,7 @@
         <div
           v-for="(grid, index) in afterShuffledGrids"
           :key="index"
-          :style="{ backgroundImage: 'url('+require('./assets/' + grid.image_url) + ')' }"
+          :style="{ backgroundImage: 'url(' + require('./assets/' + grid.image_url) + ')' }"
           :class="`box box${grid.id} ${selectedGrids.includes(grid.id) ? 'box-selected': ''}`"
           @click="toggleSelectedGrids(grid.id)"
         >
@@ -24,7 +27,7 @@
             <div @click.prevent="playSound" class="icon icon-listen"></div>
             <div class="icon icon-info"></div>
           </div>
-          <div class="right-wrapper">
+          <div @click="toggleModal" class="right-wrapper">
             <div class="validation-btn">
               <div>驗證</div>
             </div>
@@ -37,6 +40,7 @@
 
 <script>
 import Overlay from './components/overlay'
+import Modal from './components/modal'
 import guessGrids from './guess.json'
 
 export default {
@@ -45,14 +49,19 @@ export default {
       initialGrids: guessGrids,
       afterShuffledGrids: [],
       selectedGrids: [],
-      isLoading: false
+      isLoading: false,
+      showModal: false
     }
   },
   components: {
-    Overlay
+    Overlay,
+    Modal
   },
   name: 'app',
   methods: {
+    toggleModal() {
+      this.showModal = !this.showModal;
+    },
     toggleSelectedGrids(id) {
       if (this.selectedGrids.includes(id)) {
         let index = this.selectedGrids.indexOf(id)
