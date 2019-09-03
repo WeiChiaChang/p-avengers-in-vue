@@ -1,6 +1,14 @@
 <template>
   <div id="app">
     <div class="container">
+      <div id="overlay" v-if="isLoading">
+        <div class="lds-ring">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
       <div class="box-container">
         <div class="box box-title">
           <p>
@@ -42,7 +50,8 @@ export default {
     return {
       initialGrids: guessGrids,
       afterShuffledGrids: [],
-      selectedGrids: []
+      selectedGrids: [],
+      isLoading: false
     }
   },
   name: 'app',
@@ -70,7 +79,15 @@ export default {
       }
 
       this.afterShuffledGrids = temp
+      this.selectedGrids = []
       this.$forceUpdate()
+
+      this.isLoading = true
+
+      setTimeout(() => {
+          this.isLoading = false
+        }, 1000)
+
       return this.afterShuffledGrids
     }
   },
@@ -93,6 +110,7 @@ body {
 }
 
 .container {
+  position: relative;
   background-color: white;
   width: 385px;
   // height: 595px;
@@ -200,6 +218,53 @@ body {
         color: #ffffff;
         cursor: pointer;
       }
+    }
+  }
+}
+
+#overlay {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .lds-ring {
+    display: inline-block;
+    position: relative;
+    width: 64px;
+    height: 64px;
+  }
+  .lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 51px;
+    height: 51px;
+    margin: 6px;
+    border: 6px solid #fff;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #fff transparent transparent transparent;
+  }
+  .lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+  .lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+  .lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+  @keyframes lds-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
     }
   }
 }
