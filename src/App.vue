@@ -4,12 +4,14 @@
       <div class="box-container">
         <div class="box box-title">
           <p>
-            選取圖片中含有<span> 復仇者聯盟 </span>的圖片
+            選取圖片中含有
+            <span>復仇者聯盟</span>的圖片
           </p>
         </div>
         <div
           v-for="(grid, index) in afterShuffledGrids"
           :key="index"
+          :style="{ backgroundImage: 'url('+require('./assets/' + grid.image_url) + ')' }"
           :class="`box box${grid.id} ${selectedGrids.includes(grid.id) ? 'box-selected': ''}`"
           @click="toggleSelectedGrids(grid.id)"
         >
@@ -45,7 +47,7 @@ export default {
   },
   name: 'app',
   methods: {
-    toggleSelectedGrids (id) {
+    toggleSelectedGrids(id) {
       if (this.selectedGrids.includes(id)) {
         let index = this.selectedGrids.indexOf(id)
         this.selectedGrids.splice(index, 1)
@@ -53,7 +55,7 @@ export default {
         this.selectedGrids.push(id)
       }
     },
-    randomGenerateGrids (data) {
+    randomGenerateGrids(data) {
       var temp = []
       while (temp.length !== 9) {
         let randomItem = data[Math.floor(Math.random() * (data.length - 1))]
@@ -72,7 +74,7 @@ export default {
       return this.afterShuffledGrids
     }
   },
-  mounted () {
+  mounted() {
     this.afterShuffledGrids = this.randomGenerateGrids(this.initialGrids)
   }
 }
@@ -133,39 +135,39 @@ body {
       background: url("./assets/icon/check-box.png");
     }
   }
-  .box001 {
-    background-image: url('./assets/001_square_bill.jpg');
-  }
-  .box002 {
-    background-image: url('./assets/002_square_daniel.jpg');
-  }
-  .box003 {
-    background-image: url('./assets/003_square_danny.png');
-  }
-  .box004 {
-    background-image: url('./assets/004_square_geoferry.png');
-  }
-  .box005 {
-    background-image: url('./assets/005_square_jennifer.jpg');
-  }
-  .box006 {
-    background-image: url('./assets/006_square_kevin.jpg');
-  }
-  .box007 {
-    background-image: url('./assets/007_square_pascal.jpg');
-  }
-  .box008 {
-    background-image: url('./assets/008_square_peter.png');
-  }
-  .box009 {
-    background-image: url('./assets/009_square_rocoo.jpg');
-  }
-  .box010 {
-    background-image: url('./assets/010_square_ryan.jpg');
-  }
-  .box011 {
-    background-image: url('./assets/011_square_winston.jpg');
-  }
+  // .box001 {
+  //   background-image: url('./assets/001_square_bill.jpg');
+  // }
+  // .box002 {
+  //   background-image: url('./assets/002_square_daniel.jpg');
+  // }
+  // .box003 {
+  //   background-image: url('./assets/003_square_danny.png');
+  // }
+  // .box004 {
+  //   background-image: url('./assets/004_square_geoferry.png');
+  // }
+  // .box005 {
+  //   background-image: url('./assets/005_square_jennifer.jpg');
+  // }
+  // .box006 {
+  //   background-image: url('./assets/006_square_kevin.jpg');
+  // }
+  // .box007 {
+  //   background-image: url('./assets/007_square_pascal.jpg');
+  // }
+  // .box008 {
+  //   background-image: url('./assets/008_square_peter.png');
+  // }
+  // .box009 {
+  //   background-image: url('./assets/009_square_rocoo.jpg');
+  // }
+  // .box010 {
+  //   background-image: url('./assets/010_square_ryan.jpg');
+  // }
+  // .box011 {
+  //   background-image: url('./assets/011_square_winston.jpg');
+  // }
   .box:after {
     content: "";
     display: block;
