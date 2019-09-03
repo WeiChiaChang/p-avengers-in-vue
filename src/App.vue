@@ -8,7 +8,7 @@
           </p>
         </div>
         <div
-          v-for="(grid, index) in randomGenerateGrids(grids)"
+          v-for="(grid, index) in afterShuffledGrids"
           :key="index"
           :class="`box box${grid.id} ${selectedGrids.includes(grid.id) ? 'box-selected': ''}`"
           @click="toggleSelectedGrids(grid.id)"
@@ -17,7 +17,7 @@
         </div>
         <div class="box-footer">
           <div class="left-wrapper">
-            <div class="icon icon-refresh"></div>
+            <div @click="randomGenerateGrids(initialGrids)" class="icon icon-refresh"></div>
             <div class="icon icon-listen"></div>
             <div class="icon icon-info"></div>
           </div>
@@ -38,7 +38,8 @@ import guessGrids from './guess.json'
 export default {
   data() {
     return {
-      grids: guessGrids,
+      initialGrids: guessGrids,
+      afterShuffledGrids: [],
       selectedGrids: []
     }
   },
@@ -60,10 +61,19 @@ export default {
           temp.push(randomItem)
         }
       }
-      // eslint-disable-next-line no-console
-      console.log(temp)
-      return temp
+      // Shuffle it
+      for (let i = temp.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [temp[i], temp[j]] = [temp[j], temp[i]];
+      }
+
+      this.afterShuffledGrids = temp
+      this.$forceUpdate()
+      return this.afterShuffledGrids
     }
+  },
+  mounted () {
+    this.afterShuffledGrids = this.randomGenerateGrids(this.initialGrids)
   }
 }
 </script>
