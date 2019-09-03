@@ -1,14 +1,7 @@
 <template>
   <div id="app">
     <div class="container">
-      <div id="overlay" v-if="isLoading">
-        <div class="lds-ring">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      </div>
+      <Overlay v-if="isLoading" />
       <div class="box-container">
         <div class="box box-title">
           <p>
@@ -28,7 +21,7 @@
         <div class="box-footer">
           <div class="left-wrapper">
             <div @click="randomGenerateGrids(initialGrids)" class="icon icon-refresh"></div>
-            <div class="icon icon-listen"></div>
+            <div @click.prevent="playSound" class="icon icon-listen"></div>
             <div class="icon icon-info"></div>
           </div>
           <div class="right-wrapper">
@@ -43,6 +36,7 @@
 </template>
 
 <script>
+import Overlay from './components/overlay'
 import guessGrids from './guess.json'
 
 export default {
@@ -53,6 +47,9 @@ export default {
       selectedGrids: [],
       isLoading: false
     }
+  },
+  components: {
+    Overlay
   },
   name: 'app',
   methods: {
@@ -89,6 +86,10 @@ export default {
         }, 1000)
 
       return this.afterShuffledGrids
+    },
+    playSound () {
+      let audio = new Audio(require('./assets/你眼睛瞎了嗎.mp3'));
+      audio.play();
     }
   },
   mounted() {
@@ -218,53 +219,6 @@ body {
         color: #ffffff;
         cursor: pointer;
       }
-    }
-  }
-}
-
-#overlay {
-  position: absolute;
-  display: block;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  .lds-ring {
-    display: inline-block;
-    position: relative;
-    width: 64px;
-    height: 64px;
-  }
-  .lds-ring div {
-    box-sizing: border-box;
-    display: block;
-    position: absolute;
-    width: 51px;
-    height: 51px;
-    margin: 6px;
-    border: 6px solid #fff;
-    border-radius: 50%;
-    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: #fff transparent transparent transparent;
-  }
-  .lds-ring div:nth-child(1) {
-    animation-delay: -0.45s;
-  }
-  .lds-ring div:nth-child(2) {
-    animation-delay: -0.3s;
-  }
-  .lds-ring div:nth-child(3) {
-    animation-delay: -0.15s;
-  }
-  @keyframes lds-ring {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
     }
   }
 }
