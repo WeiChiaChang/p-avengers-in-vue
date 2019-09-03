@@ -85,15 +85,19 @@ body {
   background-color: black;
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   // overflow:hidden;
 }
 
 .container {
   background-color: white;
   width: 385px;
-  height: 620px;
-  margin: 0 auto;
-  margin-top: 1em;
+  // height: 595px;
+  // margin: 0 auto;
+  // margin-top: 1em;
   .box-container {
     // border: 2px solid black;
     display: flex;
@@ -135,39 +139,6 @@ body {
       background: url("./assets/icon/check-box.png");
     }
   }
-  // .box001 {
-  //   background-image: url('./assets/001_square_bill.jpg');
-  // }
-  // .box002 {
-  //   background-image: url('./assets/002_square_daniel.jpg');
-  // }
-  // .box003 {
-  //   background-image: url('./assets/003_square_danny.png');
-  // }
-  // .box004 {
-  //   background-image: url('./assets/004_square_geoferry.png');
-  // }
-  // .box005 {
-  //   background-image: url('./assets/005_square_jennifer.jpg');
-  // }
-  // .box006 {
-  //   background-image: url('./assets/006_square_kevin.jpg');
-  // }
-  // .box007 {
-  //   background-image: url('./assets/007_square_pascal.jpg');
-  // }
-  // .box008 {
-  //   background-image: url('./assets/008_square_peter.png');
-  // }
-  // .box009 {
-  //   background-image: url('./assets/009_square_rocoo.jpg');
-  // }
-  // .box010 {
-  //   background-image: url('./assets/010_square_ryan.jpg');
-  // }
-  // .box011 {
-  //   background-image: url('./assets/011_square_winston.jpg');
-  // }
   .box:after {
     content: "";
     display: block;

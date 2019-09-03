@@ -1,46 +1,57 @@
 [
   {
     "id": "001",
-    "image_url": "001_square_bill.jpg"
+    "image_url": "001_square_bill.jpg",
+    "isAvengers": false
   },
   {
     "id": "002",
-    "image_url": "002_square_daniel.jpg"
+    "image_url": "002_square_daniel.jpg",
+    "isAvengers": false
   },
   {
     "id": "003",
-    "image_url": "003_square_danny.png"
+    "image_url": "003_square_danny.png",
+    "isAvengers": false
   },
   {
     "id": "004",
-    "image_url": "004_square_geoferry.png"
+    "image_url": "004_square_geoferry.png",
+    "isAvengers": true
   },
   {
     "id": "005",
-    "image_url": "005_square_jennifer.jpg"
+    "image_url": "005_square_jennifer.jpg",
+    "isAvengers": true
   },
   {
     "id": "006",
-    "image_url": "006_square_kevin.jpg"
+    "image_url": "006_square_kevin.jpg",
+    "isAvengers": false
   },
   {
     "id": "007",
-    "image_url": "007_square_pascal.jpg"
+    "image_url": "007_square_pascal.jpg",
+    "isAvengers": true
   },
   {
     "id": "008",
-    "image_url": "008_square_peter.png"
+    "image_url": "008_square_peter.png",
+    "isAvengers": false
   },
   {
     "id": "009",
-    "image_url": "009_square_rocoo.jpg"
+    "image_url": "009_square_rocoo.jpg",
+    "isAvengers": true
   },
   {
     "id": "010",
-    "image_url": "010_square_ryan.jpg"
+    "image_url": "010_square_ryan.jpg",
+    "isAvengers": true
   },
   {
     "id": "011",
-    "image_url": "011_square_winston.jpg"
+    "image_url": "011_square_winston.jpg",
+    "isAvengers": false
   }
 ]
