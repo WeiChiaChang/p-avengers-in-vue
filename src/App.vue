@@ -2,6 +2,7 @@
   <div id="app">
     <div class="container">
       <Modal
+        :title="modalTitle"
         :visible="showModal"
       />
       <Overlay v-if="isLoading" />
@@ -50,6 +51,7 @@ export default {
       afterShuffledGrids: [],
       selectedGrids: [],
       isLoading: false,
+      modalTitle: 'FAIL！',
       showModal: false
     }
   },

@@ -12,14 +12,15 @@
         <div class="vuexplosive-modal-inner">
           <div class="vuexplosive-modal-header">
             <h2 class="vuexplosive-modal-title">{{title}}</h2>
-            <button
+            <!-- <button
               class="vuexplosive-modal-close"
               @click="modalToggle"
               v-html="closeIcon"
               arial-label="close"
-            ></button>
+            ></button> -->
           </div>
-          <div class="vuexplosive-modal-content" v-html="content"></div>
+          <img class="fail-img" src="../assets/fail.png" alt="">
+          <!-- <div class="vuexplosive-modal-content" v-html="content"></div> -->
           <!-- <div class="vuexplosive-modal-footer" v-html="footer"></div> -->
         </div>
       </div>
@@ -51,8 +52,7 @@ export default {
   data () {
     return {
       active: false,
-      explosionGifUrl:
-        require("../assets/fire.gif")
+      explosionGifUrl: require("../assets/fire.gif")
     }
   },
   methods: {
@@ -71,6 +71,10 @@ export default {
 </script>
 
 <style scoped>
+.fail-img {
+  max-width: 450px;
+}
+
 .vuexplosive-modal {
   font-family: -apple-system, BlinkMacSystemFont, "avenir next", avenir,
     "helvetica neue", helvetica, ubuntu, roboto, noto, "segoe ui", arial,
@@ -95,12 +99,13 @@ export default {
 
 .vuexplosive-modal-header {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  justify-content: center;
 }
 
 .vuexplosive-modal-title {
-  font-size: 30px;
+  font-size: 2.8em;
+  margin: .2em 0;
+  color: red;
 }
 
 .vuexplosive-modal-close {
