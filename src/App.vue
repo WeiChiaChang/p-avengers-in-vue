@@ -1,11 +1,16 @@
 <template>
   <div id="app">
     <div class="container">
-      <Modal
-        :title="modalTitle"
-        :visible="showModal"
-      />
+      <Modal :title="modalTitle" :content="modalContent" :visible="showModal" />
       <Overlay v-if="isLoading" />
+      <!-- use the modal component, pass in the prop -->
+      <Popup v-if="showPopup" @close="showPopup = false">
+        <!--
+          you can use custom content here to overwrite
+          default content
+        -->
+        <h3 slot="header">最多只能選 7 個喲，啾咪！</h3>
+      </Popup>
       <div class="box-container">
         <div class="box box-title">
           <p>
@@ -20,6 +25,9 @@
           :class="`box box${grid.id} ${selectedGrids.includes(grid.id) ? 'box-selected': ''}`"
           @click="toggleSelectedGrids(grid.id)"
         >
+          <!-- TEST ONLY  -->
+          <p style="background-color: rgba(255,0,0,.7); padding: 1px 2px; color: white;">{{grid.id}}</p>
+          <!--  -->
           <div v-if="selectedGrids.includes(grid.id)" class="box-checkbox"></div>
         </div>
         <div class="box-footer">
@@ -41,6 +49,7 @@
 
 <script>
 import Overlay from './components/overlay'
+import Popup from './components/popup'
 import Modal from './components/modal'
 import guessGrids from './guess.json'
 
@@ -51,15 +60,31 @@ export default {
       afterShuffledGrids: [],
       selectedGrids: [],
       isLoading: false,
-      modalTitle: 'FAIL！',
-      showModal: false
+      modalTitle: '搞什麼東西啊？全錯！',
+      modalContent: '你真的有在上班嗎？想跟 Geoffrey 學瑜珈魔術嗎？',
+      showModal: false,
+      showPopup: false
     }
   },
   components: {
     Overlay,
+    Popup,
     Modal
   },
   name: 'app',
+  computed: {
+    currentAvengersFilter() {
+      return this.afterShuffledGrids
+        .filter(grid => grid.isAvengers)
+        .map(grid => grid.id)
+    },
+    shouldNotMoreThan7() {
+      if (this.selectedGrids.length >= 7) {
+        return true
+      }
+      return false
+    }
+  },
   methods: {
     toggleModal() {
       this.showModal = !this.showModal;
@@ -69,8 +94,18 @@ export default {
         let index = this.selectedGrids.indexOf(id)
         this.selectedGrids.splice(index, 1)
       } else {
+        if (this.shouldNotMoreThan7) {
+          return this.showPopup = true
+        }
+
         this.selectedGrids.push(id)
       }
+
+      // 交集
+      // eslint-disable-next-line no-console
+      console.log(this.selectedGrids.filter(value => this.currentAvengersFilter.includes(value)))
+      // eslint-disable-next-line no-console
+      console.log(`${this.currentAvengersFilter.length} 中 ${this.selectedGrids.filter(value => this.currentAvengersFilter.includes(value)).length}`)
     },
     randomGenerateGrids(data) {
       var temp = []
@@ -93,12 +128,15 @@ export default {
       this.isLoading = true
 
       setTimeout(() => {
-          this.isLoading = false
-        }, 1000)
+        this.isLoading = false
+      }, 1000)
+
+      // eslint-disable-next-line no-console
+      console.log(this.currentAvengersFilter)
 
       return this.afterShuffledGrids
     },
-    playSound () {
+    playSound() {
       let audio = new Audio(require('./assets/你眼睛瞎了嗎.mp3'));
       audio.play();
     }

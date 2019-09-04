@@ -11,7 +11,7 @@
       <div class="vuexplosive-modal-container" v-if="active">
         <div class="vuexplosive-modal-inner">
           <div class="vuexplosive-modal-header">
-            <h2 class="vuexplosive-modal-title">{{title}}</h2>
+            <p class="vuexplosive-modal-title">{{title}}</p>
             <!-- <button
               class="vuexplosive-modal-close"
               @click="modalToggle"
@@ -19,8 +19,8 @@
               arial-label="close"
             ></button> -->
           </div>
-          <img class="fail-img" src="../assets/fail.png" alt="">
-          <!-- <div class="vuexplosive-modal-content" v-html="content"></div> -->
+          <div class="vuexplosive-modal-content" v-html="content"></div>
+          <img class="fail-img" src="../assets/fail.png" alt="" />
           <!-- <div class="vuexplosive-modal-footer" v-html="footer"></div> -->
         </div>
       </div>
@@ -70,7 +70,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .fail-img {
   max-width: 450px;
 }
@@ -100,12 +100,16 @@ export default {
 .vuexplosive-modal-header {
   display: flex;
   justify-content: center;
+  p {
+    margin-bottom: 0;
+  }
 }
 
 .vuexplosive-modal-title {
   font-size: 2.8em;
   margin: .2em 0;
   color: red;
+  font-weight: bolder;
 }
 
 .vuexplosive-modal-close {
@@ -120,6 +124,9 @@ export default {
 .vuexplosive-modal-content {
   font-size: 17px;
   color: #666;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
 }
 
 .vuexplosive-modal-bg {
