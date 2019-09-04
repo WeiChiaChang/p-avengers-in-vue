@@ -20,14 +20,18 @@
             ></button> -->
           </div>
           <div class="vuexplosive-modal-content" v-html="content"></div>
-          <img class="fail-img" src="../assets/fail.png" alt="" />
+          <img v-if="scoreType === 'zero'" class="fail-score-img" src="../assets/fail.png" alt="" />
+          <img v-if="scoreType === 'part'" class="part-score-img" src="../assets/turtle.gif" alt="" />
+          <img v-if="scoreType === 'all'" class="all-score-img" src="../assets/out-source.jpg" alt="" />
           <!-- <div class="vuexplosive-modal-footer" v-html="footer"></div> -->
         </div>
       </div>
     </transition>
 
     <div class="vuexplosive-modal-bg" @click="modalToggle">
-      <img class="vuexplosive-modal-explosion-gif" :src="active ? explosionGifUrl : '' " alt="">
+      <img v-if="scoreType === 'zero'" class="vuexplosive-modal-explosion-gif" :src="active ? zeroCorrectGifUrl : '' " alt="">
+      <img v-if="scoreType === 'part'" class="part-correct-modal-gif" :src="active ? partCorrectGifUrl : '' " alt="">
+      <img v-if="scoreType === 'all'" class="all-correct-modal-gif" :src="active ? allCorrectGifUrl : '' " alt="">
     </div>
   </div>
 </template>
@@ -36,6 +40,9 @@
 export default {
   name: "VuexplosionModal",
   props: {
+    scoreType: {
+      default: 'zero'
+    },
     visible: {
       default: false
     },
@@ -52,12 +59,15 @@ export default {
   data () {
     return {
       active: false,
-      explosionGifUrl: require("../assets/fire.gif")
+      zeroCorrectGifUrl: require("../assets/fire.gif"),
+      partCorrectGifUrl: require("../assets/pikachu.gif"),
+      allCorrectGifUrl: require("../assets/over100.gif")
     }
   },
   methods: {
     modalToggle() {
       this.active = !this.active;
+      this.$emit('close');
     }
   },
   watch: {
@@ -71,8 +81,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.fail-img {
+.fail-score-img {
   max-width: 450px;
+}
+
+.part-score-img {
+  width: 320px;
+}
+
+.all-score-img {
+  max-width: 480px;
 }
 
 .vuexplosive-modal {
@@ -95,6 +113,12 @@ export default {
   z-index: 9999999;
   padding: 15px;
   border-radius: 5px;
+  .vuexplosive-modal-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .vuexplosive-modal-header {
@@ -138,7 +162,9 @@ export default {
   z-index: 999;
 }
 
-.vuexplosive-modal-explosion-gif {
+.vuexplosive-modal-explosion-gif,
+.part-correct-modal-gif,
+.all-correct-modal-gif {
   position: absolute;
   top: 0;
   left: 0;

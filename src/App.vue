@@ -1,7 +1,13 @@
 <template>
   <div id="app">
     <div class="container">
-      <Modal :title="modalTitle" :content="modalContent" :visible="showModal" />
+      <Modal
+        :scoreType="scoreType"
+        :title="modal.title"
+        :content="modal.content"
+        :visible="showModal"
+        @close="showModal = false"
+      />
       <Overlay v-if="isLoading" />
       <!-- use the modal component, pass in the prop -->
       <Popup v-if="showPopup" @close="showPopup = false">
@@ -9,14 +15,18 @@
           you can use custom content here to overwrite
           default content
         -->
-        <h3 slot="header">最多只能選 7 個喲，啾咪！</h3>
+        <h3 slot="header">最多只能選 {{currentAvengersFilterLength}} 個啾咪！</h3>
       </Popup>
+      <audio ref="audioZero" :src="require('./assets/zero.mp3')"></audio>
+      <audio ref="audioPart" :src="require('./assets/pika-fadachai.mp3')"></audio>
+      <audio ref="audioAll" :src="require('./assets/aaron-smith.mp3')"></audio>
       <div class="box-container">
         <div class="box box-title">
           <p>
             選取圖片中含有
-            <span>復仇者聯盟</span>的圖片
+            <span>復仇者聯盟</span> 的圖片
           </p>
+          <!-- <button @click="allScorePlay" type="button">Click Me to Toggle Sound</button> -->
         </div>
         <div
           v-for="(grid, index) in afterShuffledGrids"
@@ -25,8 +35,8 @@
           :class="`box box${grid.id} ${selectedGrids.includes(grid.id) ? 'box-selected': ''}`"
           @click="toggleSelectedGrids(grid.id)"
         >
-          <!-- TEST ONLY  -->
-          <p style="background-color: rgba(255,0,0,.7); padding: 1px 2px; color: white;">{{grid.id}}</p>
+          <!-- TEST ONLY -->
+          <!-- <p style="background-color: rgba(255,0,0,.7); padding: 1px 2px; color: white;">{{grid.id}}</p> -->
           <!--  -->
           <div v-if="selectedGrids.includes(grid.id)" class="box-checkbox"></div>
         </div>
@@ -60,10 +70,13 @@ export default {
       afterShuffledGrids: [],
       selectedGrids: [],
       isLoading: false,
-      modalTitle: '搞什麼東西啊？全錯！',
-      modalContent: '你真的有在上班嗎？想跟 Geoffrey 學瑜珈魔術嗎？',
+      modal: {
+        title: '搞什麼東西啊？全錯！',
+        content: '你真的有在上班嗎？想跟 Geoffrey 學瑜珈魔術嗎？',
+      },
       showModal: false,
-      showPopup: false
+      showPopup: false,
+      scoreType: 'part'
     }
   },
   components: {
@@ -78,14 +91,64 @@ export default {
         .filter(grid => grid.isAvengers)
         .map(grid => grid.id)
     },
-    shouldNotMoreThan7() {
-      if (this.selectedGrids.length >= 7) {
+    shouldNotMoreThan() {
+      if (this.selectedGrids.length >= this.currentAvengersFilterLength) {
         return true
       }
       return false
+    },
+    currentAvengersFilterLength() {
+      return this.currentAvengersFilter.length
+    },
+    intersectionAvengersLength() {
+      return this.selectedGrids.filter(value => this.currentAvengersFilter.includes(value)).length
+    }
+  },
+  watch: {
+    showModal(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        switch (this.scoreType) {
+          case 'all':
+            this.allScorePlay();
+            break;
+          case 'part':
+            this.partScorePlay();
+            break;
+          default:
+            this.zeroScorePlay();
+            break;
+        }
+      }
     }
   },
   methods: {
+    zeroScorePlay() {
+      let audio = this.$refs.audioZero;
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    },
+    partScorePlay() {
+      let audio = this.$refs.audioPart;
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    },
+    allScorePlay() {
+      let audio = this.$refs.audioAll;
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    },
     toggleModal() {
       this.showModal = !this.showModal;
     },
@@ -94,23 +157,40 @@ export default {
         let index = this.selectedGrids.indexOf(id)
         this.selectedGrids.splice(index, 1)
       } else {
-        if (this.shouldNotMoreThan7) {
+        if (this.shouldNotMoreThan) {
           return this.showPopup = true
         }
 
         this.selectedGrids.push(id)
       }
 
+      switch (this.intersectionAvengersLength / this.currentAvengersFilterLength) {
+        case 0:
+          this.scoreType = 'zero'
+          this.modal.title = '搞什麼東西啊？全錯！'
+          this.modal.content = '你真的有在上班嗎？想跟 Geoffrey 學瑜珈魔術嗎？'
+          break;
+        case 1:
+          this.scoreType = 'all'
+          this.modal.title = 'Ｊ個是 ... 喔喔全對！'
+          this.modal.content = '對了，我們最近剛把技術長外包出去，想調薪？哈哈哈哈 ...'
+          break;
+        default:
+          this.scoreType = 'part'
+          this.modal.title = `${this.currentAvengersFilterLength} 中 ${this.intersectionAvengersLength}，是社畜呢！`
+          this.modal.content = '你是不是想要挑戰 Kevin 的十天最速離職傳說？'
+          break;
+      }
+
       // 交集
+      // console.log(this.selectedGrids.filter(value => this.currentAvengersFilter.includes(value)))
       // eslint-disable-next-line no-console
-      console.log(this.selectedGrids.filter(value => this.currentAvengersFilter.includes(value)))
-      // eslint-disable-next-line no-console
-      console.log(`${this.currentAvengersFilter.length} 中 ${this.selectedGrids.filter(value => this.currentAvengersFilter.includes(value)).length}`)
+      // console.log(`${this.currentAvengersFilterLength} 中 ${this.intersectionAvengersLength}`)
     },
     randomGenerateGrids(data) {
       var temp = []
       while (temp.length !== 9) {
-        let randomItem = data[Math.floor(Math.random() * (data.length - 1))]
+        let randomItem = data[Math.floor(Math.random() * (data.length))]
         if (!temp.includes(randomItem)) {
           temp.push(randomItem)
         }
@@ -132,7 +212,7 @@ export default {
       }, 1000)
 
       // eslint-disable-next-line no-console
-      console.log(this.currentAvengersFilter)
+      // console.log(this.currentAvengersFilter)
 
       return this.afterShuffledGrids
     },

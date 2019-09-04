@@ -22,7 +22,7 @@
   {
     "id": "005",
     "image_url": "005_square_jennifer.jpg",
-    "isAvengers": true
+    "isAvengers": false
   },
   {
     "id": "006",
@@ -47,11 +47,41 @@
   {
     "id": "010",
     "image_url": "010_square_ryan.jpg",
-    "isAvengers": true
+    "isAvengers": false
   },
   {
     "id": "011",
     "image_url": "011_square_winston.jpg",
     "isAvengers": false
+  },
+  {
+    "id": "012",
+    "image_url": "012_square_tina.png",
+    "isAvengers": false
+  },
+  {
+    "id": "013",
+    "image_url": "013_square_hechien.jpg",
+    "isAvengers": true
+  },
+  {
+    "id": "014",
+    "image_url": "014_square_alan.jpg",
+    "isAvengers": false
+  },
+  {
+    "id": "015",
+    "image_url": "015_square_colleen.jpg",
+    "isAvengers": false
+  },
+  {
+    "id": "016",
+    "image_url": "016_square_ceci.jpg",
+    "isAvengers": false
+  },
+  {
+    "id": "017",
+    "image_url": "017_square_jidesh.jpeg",
+    "isAvengers": true
   }
 ]
